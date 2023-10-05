@@ -10,7 +10,7 @@ import ChatScreen from './Screens/Chat';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const user=false;
+  const user=true;
   return (
     <NavigationContainer>
     <Stack.Navigator>
