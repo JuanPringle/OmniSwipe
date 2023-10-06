@@ -13,6 +13,7 @@ const SignUp = () => {
             value={username}
             placeholder="Enter New Username"
         />
+        
         <TextInput
             onChangeText={setPassword}
             value={password}

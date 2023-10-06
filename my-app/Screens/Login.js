@@ -21,7 +21,7 @@ const Login = () => {
       />
       
       <Button
-        title="Submit"
+        title="Sign In"
         color="#841584"
       />
       <Button
