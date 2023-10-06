@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import React, { createContext, useContext, useReducer } from 'react'
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const AuthContext= createContext({});
 
@@ -14,9 +16,10 @@ const firebaseConfig = {
   measurementId: "G-9N904MQX0S"
 };
 
+
 export const AuthProvider = ({children}) => {
 
-  const [user, setUser] = useState()
+  const [user, setUser] = React.useState()
   const app = initializeApp(firebaseConfig);
   const auth = firebase.auth();
   const db = firebase.firestore();

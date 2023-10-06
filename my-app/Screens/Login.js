@@ -1,8 +1,6 @@
-
-import { View, Text } from 'react-native'
-import React, { useLayoutEffect } from 'react'
-import { useNavigation } from '@react-navigation/core'
-import { ImageBackground } from 'react-native';
+import { View, Text, ImageBackground, TextInput, Button, StyleSheet } from 'react-native';
+import React, { useLayoutEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/core';
 
 const firebaseConfig = {
   apiKey: "AIzaSyCo750NYS_o8V_6JMimyGKOUKs9xVKKw_0",
@@ -14,41 +12,23 @@ const firebaseConfig = {
   measurementId: "G-9N904MQX0S"
 };
 
-
 const Login = () => {
-  const navigation=useNavigation();
-  
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const navigation = useNavigation();
+  const logoImage = require('../assets/OmniSwipelogo.jpg');
+  const [username, setUsername] = React.useState('');
+  const [password, setPassword] = React.useState('');
 
-  useLayoutEffect(()=>{
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
-  
     });
-  },[]);
-
-  const styles = StyleSheet.create({
-    backgroundImage: {
-      flex: 1, // Cover the entire screen
-      resizeMode: 'cover', // Stretch or shrink the image as needed
-      justifyContent: 'center', // Center content vertically
-    },
-    container: {
-      flex: 1,
-      alignItems: 'center', // Center content horizontally
-      justifyContent: 'center',
-      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Optional: Add a semi-transparent overlay
-    },
-});
-
+  }, []);
 
   return (
     <View>
       <Text>LoginScreen</Text>
-      <ImageBackground source={require('../assets/OmniSwipelogo.PNG')}
-      style={styles.backgroundImage}>
-
+      <ImageBackground source={logoImage} style={styles.backgroundImage}>
+        {/* Your image background content */}
       </ImageBackground>
       <TextInput
         onChangeText={setUsername}
@@ -60,19 +40,31 @@ const Login = () => {
         value={password}
         placeholder="Enter Password"
       />
-      
       <Button
         title="Sign In"
         color="#841584"
-        
       />
       <Button
         title="Sign Up"
         color="#841584"
-        onPress={()=>navigation.navigate("SignUp")}
+        onPress={() => navigation.navigate("SignUp")}
       />
-
     </View>
-)};
+  );
+};
 
-export default Login
+const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+});
+
+export default Login;
