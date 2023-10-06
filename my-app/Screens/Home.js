@@ -1,6 +1,5 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import { Button } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import {useNavigation} from '@react-navigation/core'
 
 const Home = () => {

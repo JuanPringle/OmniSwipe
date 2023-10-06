@@ -5,6 +5,7 @@ import HomeScreen from './Screens/Home'
 import LoginScreen from './Screens/Login'
 import ChatScreen from './Screens/Chat';
 import useAuth from './CustomHooks/useAuth';
+import SignUp from './Screens/SignUp';
 
 const Stack = createStackNavigator();
 
@@ -19,8 +20,13 @@ const StackNavigator = () => {
           <Stack.Screen name='Chat' component={ChatScreen} />
         </>
         :
-        <Stack.Screen name='Login' component={LoginScreen} />
+        <>
+          <Stack.Screen name='Login' component={LoginScreen} />
+          <Stack.Screen name='SignUp' component={SignUp} />
+        </>
+        
       }
+      
     </Stack.Navigator>
   )
 }
