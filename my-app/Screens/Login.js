@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { View, Text } from 'react-native'
 import React, { useLayoutEffect } from 'react'
 import { useNavigation } from '@react-navigation/core'
@@ -18,8 +18,8 @@ const firebaseConfig = {
 const Login = () => {
   const navigation=useNavigation();
   
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   useLayoutEffect(()=>{
     navigation.setOptions({
