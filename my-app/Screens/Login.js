@@ -38,10 +38,10 @@ const Login = () => {
             style={styles.input}
             secureTextEntry
           />
-          <Button title="Sign In" color="#841584" onPress={() => {/* Add sign-in logic here */ }} />
+          <Button title="Sign In" color="#FFBF00" onPress={() => {/* Add sign-in logic here */ }} />
           <Button
             title="Sign Up"
-            color="#841584"
+            color="#FFBF00"
             onPress={() => navigation.navigate("SignUp")}
           />
         </View>
