@@ -23,12 +23,12 @@ const SignUp = () => {
         />
         <Button
             title="Create New Account"
-            color="#F37413"
+            color="#FFBF00"
             style={styles.input}
         />
         <Button
             title="Go Back"
-            color="#F37413"
+            color="#FFBF00"
             onPress={()=>navigation.navigate("Login")}
             style={styles.input}
         />
