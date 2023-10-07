@@ -1,8 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import React, { createContext, useContext, useReducer } from 'react'
-import firebase from 'firebase/app';
-import 'firebase/auth';
+
+import React, { createContext, useContext } from 'react'
+import * as Google from "expo-google-app-auth";
 
 const AuthContext= createContext({});
 
@@ -19,24 +17,14 @@ const firebaseConfig = {
 
 export const AuthProvider = ({children}) => {
 
-  const [user, setUser] = React.useState()
-  const app = initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+  
+  //const app = initializeApp(firebaseConfig);
+  //const auth = firebase.auth();
+  //const db = firebase.firestore();
   //const analytics = getAnalytics(app);
 
-  const createUser = (email, password) => {
-    auth.createUserWithEmailAndPassword(email, password).then(cred => {
-      
-    })
-  }
-
-  const LoginUser = (email, password) => {
-    
-  }
-
   return (
-    <AuthContext.Provider value={user}>
+    <AuthContext.Provider value={{user: null}}>
       {children}
     </AuthContext.Provider>
   )

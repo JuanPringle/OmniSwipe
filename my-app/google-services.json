@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "895208776685",
+    "project_id": "omniswipe-e0411",
+    "storage_bucket": "omniswipe-e0411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895208776685:android:138e3bdd3e91761b39fde4",
+        "android_client_info": {
+          "package_name": "host.exp.exponent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7eE2KknSZmZ17ntQdoOPjd2E2-FMuzM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
