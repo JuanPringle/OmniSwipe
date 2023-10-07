@@ -1,22 +1,17 @@
-import { View, Text, ImageBackground, TextInput, Button, StyleSheet } from 'react-native';
+// ...
+import { View, Text, ImageBackground, TextInput, Button, StyleSheet, SafeAreaView } from 'react-native';
 import React, { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/core';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCo750NYS_o8V_6JMimyGKOUKs9xVKKw_0",
-  authDomain: "omniswipe-e0411.firebaseapp.com",
-  projectId: "omniswipe-e0411",
-  storageBucket: "omniswipe-e0411.appspot.com",
-  messagingSenderId: "895208776685",
-  appId: "1:895208776685:web:0c18c1990449c21039fde4",
-  measurementId: "G-9N904MQX0S"
+  // ... (your Firebase config)
 };
 
 const Login = () => {
   const navigation = useNavigation();
   const logoImage = require('../assets/OmniSwipelogo.jpg');
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -25,45 +20,57 @@ const Login = () => {
   }, []);
 
   return (
-    <View>
-      <Text>LoginScreen</Text>
+    <SafeAreaView style={styles.container}>
       <ImageBackground source={logoImage} style={styles.backgroundImage}>
-        {/* Your image background content */}
+        <View style={styles.overlay}>
+          {/* Your image background content */}
+          <Text>LoginScreen</Text>
+          <TextInput
+            onChangeText={setUsername}
+            value={username}
+            placeholder="Enter Username"
+            style={styles.input}
+          />
+          <TextInput
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Enter Password"
+            style={styles.input}
+            secureTextEntry
+          />
+          <Button title="Sign In" color="#841584" onPress={() => {/* Add sign-in logic here */ }} />
+          <Button
+            title="Sign Up"
+            color="#841584"
+            onPress={() => navigation.navigate("SignUp")}
+          />
+        </View>
       </ImageBackground>
-      <TextInput
-        onChangeText={setUsername}
-        value={username}
-        placeholder="Enter Username"
-      />
-      <TextInput
-        onChangeText={setPassword}
-        value={password}
-        placeholder="Enter Password"
-      />
-      <Button
-        title="Sign In"
-        color="#841584"
-      />
-      <Button
-        title="Sign Up"
-        color="#841584"
-        onPress={() => navigation.navigate("SignUp")}
-      />
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
   },
-  container: {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add an overlay to make text more readable
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    alignItems: 'center',
+  },
+  input: {
+    backgroundColor: 'white',
+    width: '80%',
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 5,
   },
 });
 

@@ -1,12 +1,12 @@
 import React from 'react'
-import { View, Text, TextInput, Button } from 'react-native'
+import { View, Text, TextInput, Button, SafeAreaView } from 'react-native'
 import {useNavigation} from '@react-navigation/core'
 const SignUp = () => {
     const navigation=useNavigation();
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     return (
-        <View>
+        <SafeAreaView>
         <Text>Sign Up Screen</Text>
         <TextInput
             onChangeText={setUsername}
@@ -28,7 +28,7 @@ const SignUp = () => {
             color="#841584"
             onPress={()=>navigation.navigate("Login")}
         />
-        </View>
+        </SafeAreaView>
     );
 }
 export default SignUp;
