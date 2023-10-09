@@ -1,17 +1,44 @@
-import React from 'react'
-import { View, Text, TextInput, Button, SafeAreaView, StyleSheet } from 'react-native'
+import React, {useState} from 'react'
+import {
+    Text, 
+    TextInput, 
+    Button, 
+    SafeAreaView, 
+    StyleSheet 
+} from 'react-native'
 import {useNavigation} from '@react-navigation/core'
+//import auth from '@react-native-firebase/auth'
+
 const SignUp = () => {
+
     const navigation=useNavigation();
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const createProfile = async () => {
+        db().ref(`/users/${response.user.uid}`).set({name});
+    }
+
+    const registerNewUser = async () => {
+        if(email && password) {
+            try {
+                const response = await auth().createUserWithEmailAndPassword(
+                    email,
+                    password
+                )
+            } catch (e) {
+                Alert.alert("Oops!", "Make sure you typed your email and password correctly")
+            }
+        }
+    }
+
     return (
         <SafeAreaView>
         <Text>Sign Up Screen</Text>
         <TextInput
-            onChangeText={setUsername}
-            value={username}
-            placeholder="Enter New Username"
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Enter New Email"
             style={styles.input}
         />
         
@@ -25,6 +52,7 @@ const SignUp = () => {
             title="Create New Account"
             color="#FFBF00"
             style={styles.input}
+            onPress={registerNewUser}
         />
         <Button
             title="Go Back"
@@ -59,4 +87,5 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
 });
+
 export default SignUp;

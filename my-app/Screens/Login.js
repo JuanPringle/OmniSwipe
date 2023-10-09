@@ -1,7 +1,17 @@
 // ...
-import { View, Text, ImageBackground, TextInput, Button, StyleSheet, SafeAreaView } from 'react-native';
+
 import React, { useLayoutEffect, useState } from 'react';
+import { 
+  View, 
+  Text, 
+  ImageBackground, 
+  TextInput, 
+  Button, 
+  StyleSheet, 
+  SafeAreaView 
+} from 'react-native';
 import { useNavigation } from '@react-navigation/core';
+//import auth from '@react-native-firebase/auth'
 
 const firebaseConfig = {
   // ... (your Firebase config)
@@ -10,7 +20,7 @@ const firebaseConfig = {
 const Login = () => {
   const navigation = useNavigation();
   const logoImage = require('../assets/OmniSwipelogo.jpg');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   useLayoutEffect(() => {
@@ -26,9 +36,9 @@ const Login = () => {
           {/* Your image background content */}
           <Text>LoginScreen</Text>
           <TextInput
-            onChangeText={setUsername}
-            value={username}
-            placeholder="Enter Username"
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Enter Email"
             style={styles.input}
           />
           <TextInput

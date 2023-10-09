@@ -1,15 +1,16 @@
 {
   "project_info": {
     "project_number": "895208776685",
+    "firebase_url": "https://omniswipe-e0411-default-rtdb.firebaseio.com",
     "project_id": "omniswipe-e0411",
     "storage_bucket": "omniswipe-e0411.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:895208776685:android:138e3bdd3e91761b39fde4",
+        "mobilesdk_app_id": "1:895208776685:android:835a478c299ea73839fde4",
         "android_client_info": {
-          "package_name": "host.exp.exponent"
+          "package_name": "com.chriscaliendo.omniswipe"
         }
       },
       "oauth_client": [],
