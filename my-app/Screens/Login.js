@@ -11,11 +11,7 @@ import {
   SafeAreaView 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-//import { firebase } from '../config'
-
-const firebaseConfig = {
-  // ... (your Firebase config)
-};
+import { firebase } from '../config'
 
 const Login = () => {
   const navigation = useNavigation();
@@ -28,6 +24,22 @@ const Login = () => {
       headerShown: false,
     });
   }, []);
+
+  const loginUser = async (email, password) => {
+    if(email && password) {
+        try {
+            const response = await firebase.auth().signInWithEmailAndPassword(
+                email,
+                password
+            )
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    else{
+        console.log("Oops!", "One of the required fields is blank")
+    }
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -51,7 +63,7 @@ const Login = () => {
           
           <TouchableOpacity
             style={styles.button}
-            onPress={() => {/* Add sign-in logic here */ }}
+            onPress={() => loginUser(email, password)}
           ><Text style={{fontWeight: 'bold', color: "#FFBF00" , margin: 15, fontSize: 20, }} >Sign In</Text>
           </TouchableOpacity>
 

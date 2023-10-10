@@ -7,7 +7,7 @@ import {
     StyleSheet 
 } from 'react-native'
 import {useNavigation} from '@react-navigation/core'
-//import { firebase } from '../config'
+import { firebase } from '../config'
 
 const SignUp = () => {
 
@@ -15,11 +15,11 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const createProfile = async () => {
-        db().ref(`/users/${response.user.uid}`).set({name});
-    }
+    //const createProfile = async () => {
+    //    db().ref(`/users/${response.user.uid}`).set({name});
+    //}
 
-    const registerNewUser = async () => {
+    const registerNewUser = async (email, password) => {
         if(email && password) {
             try {
                 const response = await auth().createUserWithEmailAndPassword(
@@ -54,7 +54,7 @@ const SignUp = () => {
         
         <TouchableOpacity
             style={styles.button}
-            onPress={() => registerNewUser()}
+            onPress={() => registerNewUser(email, password)}
         ><Text style={{fontWeight: 'bold', color: "#e6ac00" , margin: 15, fontSize: 20, }} >Create New Account</Text>
         </TouchableOpacity>
 
