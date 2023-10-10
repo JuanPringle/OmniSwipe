@@ -22,7 +22,7 @@ const SignUp = () => {
     const registerNewUser = async (email, password) => {
         if(email && password) {
             try {
-                const response = await auth().createUserWithEmailAndPassword(
+                const response = await firebase.auth().createUserWithEmailAndPassword(
                     email,
                     password
                 )
@@ -39,14 +39,14 @@ const SignUp = () => {
         <SafeAreaView>
         <Text>Sign Up Screen</Text>
         <TextInput
-            //onChangeText={(text) => setEmail(text)}
+            onChangeText={(text) => setEmail(text)}
             value={email}
             placeholder="Enter New Email"
             style={styles.input}
         />
         
         <TextInput
-            //onChangeText={(text) => setPassword(text)}
+            onChangeText={(text) => setPassword(text)}
             value={password}
             placeholder="Enter New Password"
             style={styles.input}

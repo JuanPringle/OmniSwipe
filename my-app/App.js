@@ -7,8 +7,6 @@ import { AuthProvider } from './CustomHooks/useAuth';
 
 
 export default function App() {
-
-  
   return (
     <NavigationContainer>
       <AuthProvider>
