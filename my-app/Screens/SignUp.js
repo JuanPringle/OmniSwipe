@@ -2,12 +2,12 @@ import React, {useState} from 'react'
 import {
     Text, 
     TextInput, 
-    Button, 
+    TouchableOpacity, 
     SafeAreaView, 
     StyleSheet 
 } from 'react-native'
 import {useNavigation} from '@react-navigation/core'
-//import auth from '@react-native-firebase/auth'
+//import { firebase } from '../config'
 
 const SignUp = () => {
 
@@ -27,8 +27,11 @@ const SignUp = () => {
                     password
                 )
             } catch (e) {
-                Alert.alert("Oops!", "Make sure you typed your email and password correctly")
+                console.log(e)
             }
+        }
+        else{
+            console.log("Oops!", "One of the required fields is blank")
         }
     }
 
@@ -36,30 +39,30 @@ const SignUp = () => {
         <SafeAreaView>
         <Text>Sign Up Screen</Text>
         <TextInput
-            onChangeText={setEmail}
+            //onChangeText={(text) => setEmail(text)}
             value={email}
             placeholder="Enter New Email"
             style={styles.input}
         />
         
         <TextInput
-            onChangeText={setPassword}
+            //onChangeText={(text) => setPassword(text)}
             value={password}
             placeholder="Enter New Password"
             style={styles.input}
         />
-        <Button
-            title="Create New Account"
-            color="#FFBF00"
-            style={styles.input}
-            onPress={registerNewUser}
-        />
-        <Button
-            title="Go Back"
-            color="#FFBF00"
-            onPress={()=>navigation.navigate("Login")}
-            style={styles.input}
-        />
+        
+        <TouchableOpacity
+            style={styles.button}
+            onPress={() => registerNewUser()}
+        ><Text style={{fontWeight: 'bold', color: "#e6ac00" , margin: 15, fontSize: 20, }} >Create New Account</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Login")}
+        ><Text style={{fontWeight: 'bold', color: "#e6ac00", margin: 15, fontSize: 20,}}>Go Back</Text>
+        </TouchableOpacity>
         </SafeAreaView>
     );
 }

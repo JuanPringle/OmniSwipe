@@ -6,12 +6,12 @@ import {
   Text, 
   ImageBackground, 
   TextInput, 
-  Button, 
+  TouchableOpacity, 
   StyleSheet, 
   SafeAreaView 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
-//import auth from '@react-native-firebase/auth'
+//import { firebase } from '../config'
 
 const firebaseConfig = {
   // ... (your Firebase config)
@@ -34,26 +34,33 @@ const Login = () => {
       <ImageBackground source={logoImage} style={styles.backgroundImage}>
         <View style={styles.overlay}>
           {/* Your image background content */}
-          <Text>LoginScreen</Text>
+          <Text color="#FFBF00">LoginScreen</Text>
           <TextInput
-            onChangeText={setEmail}
+            onChangeText={(text) => setEmail(text)}
             value={email}
-            placeholder="Enter Email"
+            //placeholder="Enter Email"
             style={styles.input}
           />
           <TextInput
-            onChangeText={setPassword}
+            onChangeText={(text) => setPassword(text)}
             value={password}
-            placeholder="Enter Password"
+            //placeholder="Enter Password"
             style={styles.input}
             secureTextEntry
           />
-          <Button title="Sign In" color="#FFBF00" onPress={() => {/* Add sign-in logic here */ }} />
-          <Button
-            title="Sign Up"
-            color="#FFBF00"
+          
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {/* Add sign-in logic here */ }}
+          ><Text style={{fontWeight: 'bold', color: "#FFBF00" , margin: 15, fontSize: 20, }} >Sign In</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.button}
             onPress={() => navigation.navigate("SignUp")}
-          />
+          ><Text style={{fontWeight: 'bold', color: "#FFBF00", margin: 15, fontSize: 20,}}>Sign Up</Text>
+          </TouchableOpacity>
+          
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -70,7 +77,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add an overlay to make text more readable
+    //backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add an overlay to make text more readable
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -82,6 +89,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 5,
   },
+  Text: {
+    color: 'rgb(255, 255, 255)'
+  }
 });
 
 export default Login;
