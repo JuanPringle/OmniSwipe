@@ -4,11 +4,11 @@ import React, { useLayoutEffect, useState } from 'react';
 import { 
   View, 
   Text, 
+  Image,
   ImageBackground, 
   TextInput, 
   TouchableOpacity, 
-  StyleSheet, 
-  SafeAreaView 
+  StyleSheet
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { firebase } from '../config'
@@ -16,8 +16,10 @@ import { firebase } from '../config'
 const Login = () => {
   const navigation = useNavigation();
   const logoImage = require('../assets/OmniSwipelogo.jpg');
+  const logoImage2 = require('../assets/OmniSwipelogo2.jpg');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setloginError] = useState('');
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,24 +36,27 @@ const Login = () => {
             )
         } catch (e) {
             console.log(e)
+            setloginError("The email or password entered dont exist! Please Try again!")
         }
     }
     else{
         console.log("Oops!", "One of the required fields is blank")
+        setloginError("One of the required fields is blank! Please Try again!")
     }
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ImageBackground source={logoImage} style={styles.backgroundImage}>
         <View style={styles.overlay}>
-          {/* Your image background content */}
+
+          <Image source={logoImage2} style={styles.image}/>
           <Text color="#FFBF00">LoginScreen</Text>
           <TextInput
             onChangeText={(text) => setEmail(text)}
             value={email}
             //placeholder="Enter Email"
-            style={styles.input}
+            style={styles.input }
           />
           <TextInput
             onChangeText={(text) => setPassword(text)}
@@ -60,6 +65,10 @@ const Login = () => {
             style={styles.input}
             secureTextEntry
           />
+
+          { loginError != '' &&
+            <Text style={{fontWeight: 'bold', color: "#fc2003", margin: 15, fontSize: 12,}}>{loginError}</Text>
+          }
           
           <TouchableOpacity
             style={styles.button}
@@ -75,7 +84,7 @@ const Login = () => {
           
         </View>
       </ImageBackground>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -87,6 +96,10 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+  },
+  image:{
+    width: 320,
+    height: 200,
   },
   overlay: {
     //backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add an overlay to make text more readable
