@@ -51,7 +51,6 @@ const Login = () => {
         <View style={styles.overlay}>
 
           <Image source={logoImage2} style={styles.image}/>
-          <Text color="#FFBF00">LoginScreen</Text>
           <TextInput
             onChangeText={(text) => setEmail(text)}
             value={email}
