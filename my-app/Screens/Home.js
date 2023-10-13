@@ -9,25 +9,23 @@ import {
 } from 'react-native'
 import {useNavigation} from '@react-navigation/core'
 import useAuth from '../CustomHooks/useAuth'
-import {TailwindProvider} from 'tailwind-rn';
-
-const pfpImageW = require('../assets/examplePFPwoman.jpg');
-const pfpImageM = require('../assets/examplePFPman.jpg');
-
+import {useTailwind} from 'tailwind-rn';
 
 
 const Home = () => {
-  const {user, logoutUser} = useAuth();
-  console.log(user);
-  
-  
+  const { logoutUser} = useAuth();
+  const pfpImageW = require('../assets/examplePFPwoman.jpg');
+  const pfpImageM = require('../assets/examplePFPman.jpg');
+  const tailwind = useTailwind();
   const navigation=useNavigation();
+  
   return (
     <SafeAreaView>
       <View>
         {/* Header */}
-        <TouchableOpacity>
+        <TouchableOpacity >
           <Image 
+            style={tailwind('h-10')}
             source={pfpImageM}
           />
         </TouchableOpacity>

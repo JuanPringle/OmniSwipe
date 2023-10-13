@@ -44,11 +44,7 @@ export const AuthProvider = ({children}) => {
 
   return (
     <AuthContext.Provider 
-      value={{
-        user, 
-        initializing,
-        logoutUser,
-      }}
+      value={memoedValue}
     >
       {children}
     </AuthContext.Provider>
