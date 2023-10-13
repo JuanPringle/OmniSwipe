@@ -11,6 +11,7 @@ import useAuth from '../CustomHooks/useAuth'
 
 const Home = () => {
   const {user, logoutUser} = useAuth();
+  console.log(user);
   
   
   const navigation=useNavigation();
