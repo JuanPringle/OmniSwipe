@@ -1,5 +1,6 @@
 
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react'
+import { firebase } from '../config'
 
 const AuthContext= createContext({});
 
@@ -16,14 +17,39 @@ const firebaseConfig = {
 
 export const AuthProvider = ({children}) => {
 
-  
-  //const app = initializeApp(firebaseConfig);
-  //const auth = firebase.auth();
-  //const db = firebase.firestore();
-  //const analytics = getAnalytics(app);
+  const [initializing, setInitializing] = useState(false);
+  const [user, setUser] = useState(null);
+  const [Error, setError] = useState('');
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged( (user) => {
+      if (user) {
+        setUser(user)
+      }else{
+        setUser(null)
+      }
+    })
+  }, [])
+
+  const logoutUser = async () => {
+    setInitializing(true);
+    await firebase.auth().signOut()
+    .catch((e) => setError(e))
+    .finally(() => setInitializing(false));
+  }
+
+  const memoedValue = useMemo(() => ({
+    user, initializing, logoutUser,
+  }), [user, initializing])
 
   return (
-    <AuthContext.Provider value={{user: null}}>
+    <AuthContext.Provider 
+      value={{
+        user, 
+        initializing,
+        logoutUser,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   )

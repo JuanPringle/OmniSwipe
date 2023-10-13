@@ -1,11 +1,12 @@
 
-import React, {useState, useEffect} from 'react'
+import React, { useEffect} from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './Screens/Home';
-import LoginScreen from './Screens/Login';
-import ChatScreen from './Screens/Chat';
-import SignUp from './Screens/SignUp';
-import { firebase } from './config';
+import HomeScreen from '../Screens/Home';
+import LoginScreen from '../Screens/Login';
+import ChatScreen from '../Screens/Chat';
+import SignUp from '../Screens/SignUp';
+import { firebase } from '../config';
+import useAuth from './useAuth';
 
 
 //const [user, setUser] = useState(true);
@@ -14,17 +15,8 @@ import { firebase } from './config';
 const StackNavigator = () => {
   
   const Stack = createStackNavigator();
-  const [initializing, setInitializing] = React.useState(true);
-  const [user, setUser] = useState(false);
+  const {user, initializing} = useAuth();
   //setUser(user)
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if(initializing) setInitializing(false);
-  }
-  useEffect(() => {
-    const subscriber = firebase.auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber;
-  }, []);
   
   if(initializing) return null;
   return (
