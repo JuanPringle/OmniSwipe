@@ -8,7 +8,9 @@ import {
   ImageBackground, 
   TextInput, 
   TouchableOpacity, 
-  StyleSheet
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard
 } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import { firebase } from '../config'
@@ -46,6 +48,7 @@ const Login = () => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
       <ImageBackground source={logoImage} style={styles.backgroundImage}>
         <View style={styles.overlay}>
@@ -84,6 +87,7 @@ const Login = () => {
         </View>
       </ImageBackground>
     </View>
+    </TouchableWithoutFeedback>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useLayoutEffect} from 'react'
 import {
     View,
     Text, 
@@ -16,7 +16,11 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [signUpError, setSignUpError] = useState('');
-    
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: false,
+        });
+    }, []);
 
     //const createProfile = async () => {
     //    db().ref(`/users/${response.user.uid}`).set({name});
@@ -42,7 +46,7 @@ const SignUp = () => {
     }
 
     return (
-        <View>
+        <SafeAreaView>
         <Text>Sign Up Screen</Text>
         <TextInput
             onChangeText={(text) => setEmail(text)}
@@ -57,6 +61,7 @@ const SignUp = () => {
             placeholder="Enter New Password"
             style={styles.input}
         />
+    
 
         { signUpError != '' &&
             <Text style={{fontWeight: 'bold', color: "#fc2003", margin: 15, fontSize: 12,}}>{signUpError}</Text>
@@ -73,9 +78,13 @@ const SignUp = () => {
             onPress={() => navigation.navigate("Login")}
         ><Text style={{fontWeight: 'bold', color: "#e6ac00", margin: 15, fontSize: 20,}}>Go Back</Text>
         </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }
+
+
+
+
 
 const styles = StyleSheet.create({
     container: {

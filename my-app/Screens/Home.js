@@ -5,11 +5,13 @@ import {
   Text, 
   Image,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  StyleSheet
 } from 'react-native'
 import {useNavigation} from '@react-navigation/core'
 import useAuth from '../CustomHooks/useAuth'
 import {useTailwind} from 'tailwind-rn';
+import { useLayoutEffect } from 'react'
 
 
 const Home = () => {
@@ -18,22 +20,26 @@ const Home = () => {
   const pfpImageM = require('../assets/examplePFPman.jpg');
   const tailwind = useTailwind();
   const navigation=useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
   
   return (
     <SafeAreaView>
-      <View>
+      <View style={styles.header}>
         {/* Header */}
         <TouchableOpacity >
           <Image 
-            style={tailwind('h-10')}
+            style={styles.profileImage}
             source={pfpImageM}
           />
         </TouchableOpacity>
+        <Button title="Go to Chat" onPress={() => navigation.navigate("Chat")} />
       </View>
-
       {/* End of Header */}
       <Text>HomeScreen</Text>
-      <Button title="Go to Chat" onPress={()=>navigation.navigate("Chat")}/>
 
       <TouchableOpacity
         onPress={logoutUser}
@@ -43,4 +49,21 @@ const Home = () => {
   )
 }
 
-export default Home
+
+const styles = StyleSheet.create({
+  header: {
+    flexDirection: 'row', // You should specify a valid value for flexDirection
+    borderBottomWidth:1,
+    paddingBottom:5,
+    paddingTop:5,
+    paddingLeft:5,
+    backgroundColor: '#6C6C6C',
+    justifyContent:'space-between'
+  },
+  profileImage:{
+    height:30,
+    width:30,
+    borderRadius:15
+  }
+});
+export default Home;
