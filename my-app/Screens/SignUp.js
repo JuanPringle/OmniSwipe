@@ -16,6 +16,7 @@ const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [signUpError, setSignUpError] = useState('');
+    
 
     //const createProfile = async () => {
     //    db().ref(`/users/${response.user.uid}`).set({name});
