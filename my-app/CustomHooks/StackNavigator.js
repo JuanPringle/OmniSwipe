@@ -7,6 +7,7 @@ import ChatScreen from '../Screens/Chat';
 import SignUp from '../Screens/SignUp';
 import { firebase } from '../config';
 import useAuth from './useAuth';
+import ProfileScreen from '../Screens/Profile';
 
 
 //const [user, setUser] = useState(true);
@@ -25,6 +26,7 @@ const StackNavigator = () => {
         <>
           <Stack.Screen name='Home' component={HomeScreen} />
           <Stack.Screen name='Chat' component={ChatScreen} />
+          <Stack.Screen name='Profile' component={ProfileScreen} />
         </>
         :
         <>
