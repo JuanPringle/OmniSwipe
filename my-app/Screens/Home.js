@@ -6,13 +6,15 @@ import {
   Image,
   Button,
   TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  Touchable
 } from 'react-native'
 import {useNavigation} from '@react-navigation/core'
 import useAuth from '../CustomHooks/useAuth'
 import {useTailwind} from 'tailwind-rn';
 import { useLayoutEffect } from 'react'
 import Swiper from 'react-native-deck-swiper'
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Home = () => {
@@ -45,16 +47,18 @@ const Home = () => {
   ]
   return (
     <View style={styles.outsideView}>
-    <SafeAreaView>
+    <SafeAreaView style={styles.safeView}>
       <View style={styles.header}>
         {/* Header */}
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-          <Image 
-            style={styles.profileImage}
-            source={pfpImageM}
-          />
+            <Image
+              style={styles.profileImage}
+              source={pfpImageM}
+            />
         </TouchableOpacity>
-        <Button title="Go to Chat" onPress={() => navigation.navigate("Chat")} />
+        <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+            <Ionicons name="call-outline" size={24} color="black" />
+        </TouchableOpacity>
       </View>
       {/* End of Header */}
       <View style={styles.container}>
@@ -64,7 +68,20 @@ const Home = () => {
             onPress={logoutUser}
           ><Text style={{ fontWeight: 'bold', color: "#FFBF00", margin: 15, fontSize: 20, }} >Sign Out</Text>
           </TouchableOpacity>
+          <Swiper
+            style={styles.card}
+            cards={FAKE_DATA}
+            renderCard={(card) => (
+              <View key={card.id}>
+                <Text>
+                  {card.firstName}
+                  {card.lastName}
+                </Text>
+              </View>
+            )}
+          />
       </View>
+      
     </SafeAreaView>
     </View>
   )
@@ -77,11 +94,11 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row', // You should specify a valid value for flexDirection
-    paddingBottom:15,
+    paddingBottom:40,
     paddingTop:5,
     paddingLeft:5,
     backgroundColor: '#6C6C6C',
-    justifyContent:'space-between'
+    justifyContent:'space-between',
   },
   profileImage:{
     height:30,
@@ -90,6 +107,13 @@ const styles = StyleSheet.create({
   },
   container:{
     flex:1
-  }
+  },
+  safeView:{
+    flex:1,
+  },
+  card:{
+    marginTop:100,
+    backgroundColor:'red',
+  },
 });
 export default Home;
