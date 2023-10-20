@@ -72,11 +72,17 @@ const Home = () => {
             style={styles.card}
             cards={FAKE_DATA}
             renderCard={(card) => (
+              
               <View key={card.id}>
+                <Image
+                  source={pfpImageW}
+                />
+                <View>
                 <Text>
                   {card.firstName}
                   {card.lastName}
                 </Text>
+                </View>
               </View>
             )}
           />
