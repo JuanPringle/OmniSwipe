@@ -68,14 +68,18 @@ const Home = () => {
             onPress={logoutUser}
           ><Text style={{ fontWeight: 'bold', color: "#FFBF00", margin: 15, fontSize: 20, }} >Sign Out</Text>
           </TouchableOpacity>
+          
           <Swiper
             style={styles.card}
             cards={FAKE_DATA}
+            cardIndex={0}
+            childrenOnTop={true}
             renderCard={(card) => (
               
               <View key={card.id}>
                 <Image
                   source={pfpImageW}
+                  style={styles.cardImage}
                 />
                 <View>
                 <Text>
@@ -111,6 +115,10 @@ const styles = StyleSheet.create({
     width:30,
     borderRadius:15
   },
+  cardImage:{
+    width:320,
+    borderRadius: 50,
+  },
   container:{
     flex:1
   },
@@ -119,6 +127,7 @@ const styles = StyleSheet.create({
   },
   card:{
     marginTop:100,
+    cardHorizontalMargin:0,
     backgroundColor:'red',
   },
 });
