@@ -83,8 +83,7 @@ const Home = () => {
                 />
                 <View>
                 <Text>
-                  {card.firstName}
-                  {card.lastName}
+                  {card.firstName} {card.lastName}
                 </Text>
                 </View>
               </View>
