@@ -1,4 +1,4 @@
-import React from 'react'
+import { React, useLayoutEffect }from 'react'
 import { 
   View, 
   SafeAreaView,
@@ -8,19 +8,23 @@ import {
   TouchableOpacity,
   StyleSheet,
   Touchable
+  
 } from 'react-native'
+import Swiper from 'react-native-deck-swiper';
 import {useNavigation} from '@react-navigation/core'
 import useAuth from '../CustomHooks/useAuth'
 import {useTailwind} from 'tailwind-rn';
-import { useLayoutEffect } from 'react'
-import Swiper from 'react-native-deck-swiper'
 import { Ionicons } from '@expo/vector-icons';
+import { useFonts, Lato_900Black } from '@expo-google-fonts/lato';
 
 
 const Home = () => {
   const { logoutUser} = useAuth();
-  const pfpImageW = require('../assets/examplePFPwoman.jpg');
-  const pfpImageM = require('../assets/examplePFPman.jpg');
+  const pfpImageW = require('../assets/pictures/examplePFPwoman.jpg');
+  const pfpImageM = require('../assets/pictures/examplePFPman.jpg');
+  const [fontsLoaded] = useFonts({
+    Lato_900Black,
+  });
   const tailwind = useTailwind();
   const navigation=useNavigation();
   useLayoutEffect(() => {
@@ -82,7 +86,7 @@ const Home = () => {
                   style={styles.cardImage}
                 />
                 <View>
-                <Text>
+                <Text style={{ fontFamily: 'Lato_900Black', fontSize: 40 }}>
                   {card.firstName} {card.lastName}
                 </Text>
                 </View>

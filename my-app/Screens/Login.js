@@ -17,8 +17,8 @@ import { firebase } from '../config'
 
 const Login = () => {
   const navigation = useNavigation();
-  const logoImage = require('../assets/OmniSwipelogo.jpg');
-  const logoImage2 = require('../assets/OmniSwipelogo2.jpg');
+  const logoImage = require('../assets/pictures/OmniSwipelogo.jpg');
+  const logoImage2 = require('../assets/pictures/OmniSwipelogo2.jpg');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setloginError] = useState('');
