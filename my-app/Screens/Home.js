@@ -73,7 +73,7 @@ const Home = () => {
             style={styles.card}
             cards={FAKE_DATA}
             cardIndex={0}
-            childrenOnTop={true}
+            infinite = {true}
             renderCard={(card) => (
               
               <View key={card.id}>
@@ -129,6 +129,13 @@ const styles = StyleSheet.create({
     marginTop:100,
     cardHorizontalMargin:0,
     backgroundColor:'red',
+    flex: 1,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: "#E8E8E8",
+    justifyContent: "center",
+    backgroundColor: "white"
   },
+  
 });
 export default Home;
