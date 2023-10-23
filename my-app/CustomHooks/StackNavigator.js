@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../Screens/Home';
 import LoginScreen from '../Screens/Login';
 import ChatScreen from '../Screens/Chat';
+import ModalScreen from '../Screens/Modal';
 import SignUp from '../Screens/SignUp';
 import { firebase } from '../config';
 import useAuth from './useAuth';
@@ -26,6 +27,7 @@ const StackNavigator = () => {
         <>
           <Stack.Screen name='Home' component={HomeScreen} />
           <Stack.Screen name='Chat' component={ChatScreen} />
+          <Stack.Screen name='Modal' component={ModalScreen} />
           <Stack.Screen name='Profile' component={ProfileScreen} />
         </>
         :

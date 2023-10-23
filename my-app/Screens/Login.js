@@ -100,10 +100,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
   },
-  image:{
-    width: 320,
-    height: 200,
-  },
+  
   overlay: {
     //backgroundColor: 'rgba(0, 0, 0, 0.5)', // Add an overlay to make text more readable
     flex: 1,

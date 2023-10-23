@@ -57,14 +57,17 @@ const Home = () => {
     <SafeAreaView style={styles.safeView}>
       <View style={styles.header}>
         {/* Header */}
-          <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
-            <Image
-              style={styles.profileImage}
-              source={pfpImageM}
-            />
+        <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
+          <Image
+            style={styles.profileImage}
+            source={pfpImageM}
+          />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
-            <Ionicons name="call-outline" size={24} color="black" />
+            <Ionicons name="call-outline" size={30} color="black" style={styles.profileImage}/>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
+            <Ionicons name="settings-sharp" size={30} color="black" style={styles.profileImage}/>
         </TouchableOpacity>
       </View>
       {/* End of Header */}
@@ -128,9 +131,10 @@ const styles = StyleSheet.create({
     borderRadius:15
   },
   cardImage:{
-    height: '80%',
+    height: '90%',
     width: '100%',
     alignSelf: 'center',
+    
     borderRadius: 20,
   },
   container:{
