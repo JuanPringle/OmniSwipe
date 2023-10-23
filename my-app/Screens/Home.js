@@ -37,16 +37,19 @@ const Home = () => {
       firstName:"John",
       lastName:"Pingol",
       age:22,
+      occupation: "Retail Worker"
     },
     {
       firstName:"Christian",
       lastName:"Felix",
       age:21,
+      occupation: "Student"
     },
     {
       firstName:"Sky",
       lastName:"Bullock",
       age:20,
+      occupation: "Web Developer"
     }
   ]
   return (
@@ -66,33 +69,39 @@ const Home = () => {
       </View>
       {/* End of Header */}
       <View style={styles.container}>
-          <Text>HomeScreen</Text>
-
-          <TouchableOpacity
-            onPress={logoutUser}
-          ><Text style={{ fontWeight: 'bold', color: "#FFBF00", margin: 15, fontSize: 20, }} >Sign Out</Text>
-          </TouchableOpacity>
           
           <Swiper
             style={styles.card}
             cards={FAKE_DATA}
             cardIndex={0}
             infinite = {true}
+            showSecondCard= {true}
             renderCard={(card) => (
               
-              <View key={card.id}>
+              <View key={card.id} style={{ backgroundColor: 'powderblue', justifyContent: 'flex-end',}}>
                 <Image
                   source={pfpImageW}
                   style={styles.cardImage}
                 />
-                <View>
-                <Text style={{ fontFamily: 'Lato_900Black', fontSize: 40 }}>
-                  {card.firstName} {card.lastName}
-                </Text>
+                <View style={{position: 'absolute', width: '100%', alignSelf: 'center', backgroundColor: 'white', justifyContent: 'flex-end'}}>
+                  <Text style={{ fontFamily: 'Lato_900Black', fontSize: 20, }}>
+                    Name: {card.firstName} {card.lastName}
+                  </Text>
+                  <Text style={{ fontFamily: 'Lato_900Black', fontSize: 20 }}>
+                    Age: {card.age}
+                  </Text>
+                  <Text style={{ fontFamily: 'Lato_900Black', fontSize: 20 }}>
+                    Occupation: {card.occupation}
+                  </Text>
                 </View>
               </View>
             )}
           />
+
+          <TouchableOpacity
+            onPress={logoutUser}
+          ><Text style={{ fontWeight: 'bold', color: "#FFBF00", margin: 15, fontSize: 20, }} >Sign Out</Text>
+          </TouchableOpacity>
       </View>
       
     </SafeAreaView>
@@ -119,21 +128,24 @@ const styles = StyleSheet.create({
     borderRadius:15
   },
   cardImage:{
-    width:320,
-    borderRadius: 50,
+    height: '80%',
+    width: '100%',
+    alignSelf: 'center',
+    borderRadius: 20,
   },
   container:{
-    flex:1
+    height: '100%',
+    width: null,
   },
   safeView:{
     flex:1,
   },
   card:{
-    marginTop:100,
+    marginTop: 20,
     cardHorizontalMargin:0,
     backgroundColor:'red',
     flex: 1,
-    borderRadius: 4,
+    borderRadius: 20,
     borderWidth: 2,
     borderColor: "#E8E8E8",
     justifyContent: "center",
