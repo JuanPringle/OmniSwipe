@@ -86,7 +86,7 @@ const Home = () => {
                   source={pfpImageW}
                   style={styles.cardImage}
                 />
-                <View style={{position: 'absolute', width: '100%', alignSelf: 'center', backgroundColor: 'white', justifyContent: 'flex-end'}}>
+                <View style={{position: 'absolute', width: '100%', alignSelf: 'center', backgroundColor: 'white'}}>
                   <Text style={{ fontFamily: 'Lato_900Black', fontSize: 20, }}>
                     Name: {card.firstName} {card.lastName}
                   </Text>
@@ -131,14 +131,13 @@ const styles = StyleSheet.create({
     borderRadius:15
   },
   cardImage:{
-    height: '90%',
-    width: '100%',
+    height: 500,
+    width: '95%',
     alignSelf: 'center',
-    
-    borderRadius: 20,
+    borderRadius: 20
   },
   container:{
-    height: '100%',
+    
     width: null,
   },
   safeView:{
