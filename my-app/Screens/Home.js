@@ -79,6 +79,7 @@ const Home = () => {
             infinite={true}
             showSecondCard={true}
             renderCard={(card) => (
+<<<<<<< HEAD
               <View key={card.id} style={styles.card}>
                 <Image source={{uri: card.photoURL}} style={styles.cardImage} />
                 <View style={{ position: 'relative', width: '100%', alignSelf: 'center', backgroundColor: 'white', justifyContent: 'flex-end' }}>
@@ -92,6 +93,23 @@ const Home = () => {
                   </View>
                   <Text style={{ fontSize: 20, fontWeight: 'bold', fontStyle: 'italic' }}>
                     {card.age}
+=======
+              
+              <View key={card.id} style={{ backgroundColor: 'powderblue', justifyContent: 'flex-end',}}>
+                <Image
+                  source={pfpImageW}
+                  style={styles.cardImage}
+                />
+                <View style={{position: 'absolute', width: '100%', alignSelf: 'center', backgroundColor: 'white'}}>
+                  <Text style={{ fontFamily: 'Lato_900Black', fontSize: 20, }}>
+                    Name: {card.firstName} {card.lastName}
+                  </Text>
+                  <Text style={{ fontFamily: 'Lato_900Black', fontSize: 20 }}>
+                    Age: {card.age}
+                  </Text>
+                  <Text style={{ fontFamily: 'Lato_900Black', fontSize: 20 }}>
+                    Occupation: {card.occupation}
+>>>>>>> 5209acd2dd3c34be10cff5b63f6ebffa08d52c14
                   </Text>
                 </View>
               </View>
@@ -123,6 +141,7 @@ const styles = StyleSheet.create({
     width: 30,
     borderRadius: 15,
   },
+<<<<<<< HEAD
   cardImage: {
     height: '70%',
     width: '100%',
@@ -131,6 +150,16 @@ const styles = StyleSheet.create({
   },
   container: {
     height: '100%',
+=======
+  cardImage:{
+    height: 500,
+    width: '95%',
+    alignSelf: 'center',
+    borderRadius: 20
+  },
+  container:{
+    
+>>>>>>> 5209acd2dd3c34be10cff5b63f6ebffa08d52c14
     width: null,
   },
   safeView: {
