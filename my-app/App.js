@@ -6,7 +6,6 @@ import StackNavigator from './CustomHooks/StackNavigator';
 import { AuthProvider } from './CustomHooks/useAuth';
 import {TailwindProvider} from 'tailwind-rn';
 import utilities from './tailwind.json';
-import { useFonts } from 'expo-font';
 
 
 export default function App() {

@@ -1,5 +1,5 @@
 
-import React, { useEffect} from 'react'
+import React, {useEffect} from 'react'
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../Screens/Home';
 import LoginScreen from '../Screens/Login';
@@ -25,10 +25,14 @@ const StackNavigator = () => {
     <Stack.Navigator>
       {user ?
         <>
-          <Stack.Screen name='Home' component={HomeScreen} />
-          <Stack.Screen name='Chat' component={ChatScreen} />
-          <Stack.Screen name='Modal' component={ModalScreen} />
-          <Stack.Screen name='Profile' component={ProfileScreen} />
+          <Stack.Group>
+            <Stack.Screen name='Home' component={HomeScreen} />
+            <Stack.Screen name='Chat' component={ChatScreen} />
+            <Stack.Screen name='Profile' component={ProfileScreen} />
+          </Stack.Group>
+          <Stack.Group screenOptions={{ presentation: "modal" }}>
+            <Stack.Screen name='Modal' component={ModalScreen} />
+          </Stack.Group>
         </>
         :
         <>
