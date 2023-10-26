@@ -50,17 +50,17 @@ const Login = () => {
   return (
     <TouchableWithoutFeedback onPress={()=>Keyboard.dismiss()}>
     <View style={styles.container}>
-      <ImageBackground source={logoImage} style={styles.backgroundImage}>
+      
         <View style={styles.overlay}>
-
           <Image source={logoImage2} style={styles.image}/>
-          <TextInput
+          <TextInput placeholder={'Enter Email'}
             onChangeText={(text) => setEmail(text)}
             value={email}
             //placeholder="Enter Email"
             style={styles.input }
           />
           <TextInput
+            placeholder={'Enter Password'}
             onChangeText={(text) => setPassword(text)}
             value={password}
             //placeholder="Enter Password"
@@ -85,7 +85,7 @@ const Login = () => {
           </TouchableOpacity>
           
         </View>
-      </ImageBackground>
+    
     </View>
     </TouchableWithoutFeedback>
   );
@@ -94,6 +94,7 @@ const Login = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'rgba(51, 51, 51, 1)',
   },
   backgroundImage: {
     flex: 1,
