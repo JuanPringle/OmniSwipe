@@ -67,11 +67,11 @@ const Home = () => {
           <TouchableOpacity onPress={() => navigation.navigate("Profile")}>
             <Image style={styles.profileImage} source={pfpImageM} />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
-            <Ionicons name="call-outline" size={30} color="white" style={styles.profileImage} />
-          </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
             <Ionicons name="settings-sharp" size={30} color="white" style={styles.profileImage} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+            <Ionicons name="call-outline" size={30} color="white" style={styles.profileImage} />
           </TouchableOpacity>
         </View>
         {/* End of Header */}
@@ -130,13 +130,13 @@ const Home = () => {
           />
         </View>
         <View style={styles.buttons}>
-          <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}>
-            <Entypo name="cross" size={24} color="black" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => swipeRef.current.swipeRight()}>
-            <Ionicons name="heart" size={24} color="black" />
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}style={styles.dislikeButton}>
+              <Entypo name="cross" size={24} color="white" style={styles.dislikeIcon} />
+            </TouchableOpacity>
+          <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={styles.likeButton}>
+              <Ionicons name="heart" size={24} color="green" style={styles.likeIcon} />
+            </TouchableOpacity>
+          </View>
       </SafeAreaView>
     </View>
   );
@@ -147,9 +147,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#D8955E',
   },
   buttons:{
-    flex:1,
+    marginTop: 700,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
+  },
+  likeButton:{
+    borderRadius: 15,
+    alignItems: 'center', // Center the icon horizontally
+    justifyContent: 'center', // Center the icon vertically
+  },
+  dislikeButton: {
+    paddingLeft: 15,
+    borderRadius: 15,
+    alignItems: 'center', // Center the icon horizontally
+    justifyContent: 'center', // Center the icon vertically
+  },
+  likeIcon:{
+    height: 30,
+    width: 30,
+    backgroundColor: "#4DED30",
+  },
+  dislikeIcon: {
+    backgroundColor: "red",
+    height: 30,
+    width: 30,
   },
   header: {
     flexDirection: 'row',
