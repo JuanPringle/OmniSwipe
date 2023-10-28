@@ -77,6 +77,7 @@ const Home = () => {
         {/* End of Header */}
         <View style={styles.container}>
           <Swiper
+            ref={swipeRef}
             cards={FAKE_DATA}
             cardIndex={0}
             infinite={true}
@@ -130,11 +131,25 @@ const Home = () => {
           />
         </View>
         <View style={styles.buttons}>
-            <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()}style={styles.dislikeButton}>
-              <Entypo name="cross" size={24} color="white" style={styles.dislikeIcon} />
+          <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()} style={{
+          alignItems:'center',
+          justifyContent:'center',
+          width:100,
+          height:100,
+          borderRadius:50,
+          backgroundColor: "red",
+          }}>
+              <Entypo name="cross" size={30} color="white" style={styles.dislikeIcon} />
             </TouchableOpacity>
-          <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={styles.likeButton}>
-              <Ionicons name="heart" size={24} color="green" style={styles.likeIcon} />
+          <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={{
+          alignItems:'center',
+          justifyContent:'center',
+          width:100,
+          height:100,
+          borderRadius:50,
+          backgroundColor: "#4DED30",
+          }}>
+              <Ionicons name="heart" size={30} color="green" style={styles.likeIcon} />
             </TouchableOpacity>
           </View>
       </SafeAreaView>
@@ -147,14 +162,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#D8955E',
   },
   buttons:{
-    marginTop: 700,
+    marginTop: 675,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
   likeButton:{
-    borderRadius: 15,
-    alignItems: 'center', // Center the icon horizontally
-    justifyContent: 'center', // Center the icon vertically
+    width: 100,
+    height: 100,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 100,
   },
   dislikeButton: {
     paddingLeft: 15,
@@ -165,10 +183,8 @@ const styles = StyleSheet.create({
   likeIcon:{
     height: 30,
     width: 30,
-    backgroundColor: "#4DED30",
   },
   dislikeIcon: {
-    backgroundColor: "red",
     height: 30,
     width: 30,
   },

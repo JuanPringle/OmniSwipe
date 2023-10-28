@@ -52,7 +52,7 @@ const Login = () => {
     <View style={styles.container}>
       
         <View style={styles.overlay}>
-          <Image source={logoImage2} style={styles.image}/>
+          <Image source={logoImage2}/>
           <TextInput placeholder={'Enter Email'}
             onChangeText={(text) => setEmail(text)}
             value={email}
