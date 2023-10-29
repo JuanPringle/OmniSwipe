@@ -6,10 +6,11 @@ import {
     TextInput, 
     TouchableOpacity, 
     StyleSheet,
-    TouchableWithoutFeedback
+    TouchableWithoutFeedback,
+    Keyboard
 } from 'react-native';
 import useAuth from "../CustomHooks/useAuth";
-import { useLayoutEffect } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 const Modal = () => {
     const navigation=useNavigation();
@@ -21,8 +22,12 @@ const Modal = () => {
     }, []);
 
     const {user} = useAuth();
+    const [image,setImage] = useState(null);
+    const [job, setJob] = useState(null);
+    const [age, setAge] = useState(null);
 
-    return (  
+    return (
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         <View style={styles.container}>
             <View style={styles.image}>
             <Image source={logoImage2} />
@@ -58,6 +63,7 @@ const Modal = () => {
                 placeholder="Enter"
                 placeholderTextColor={"white"}
                 style={styles.input}
+                keyboardType='numeric'
             />
             <View style={{alignItems: 'center'}}>
                 <TouchableOpacity style={styles.button}>
@@ -67,6 +73,7 @@ const Modal = () => {
                 </TouchableOpacity>
             </View>
         </View>
+        </TouchableWithoutFeedback>
     );
 }
 const styles = StyleSheet.create({
