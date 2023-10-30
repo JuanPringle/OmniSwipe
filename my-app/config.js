@@ -4,14 +4,14 @@ import 'firebase/compat/firestore';
 import { setDoc, doc } from 'firebase/compat/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCo750NYS_o8V_6JMimyGKOUKs9xVKKw_0",
-    authDomain: "omniswipe-e0411.firebaseapp.com",
-    databaseURL: "https://omniswipe-e0411-default-rtdb.firebaseio.com",
-    projectId: "omniswipe-e0411",
-    storageBucket: "omniswipe-e0411.appspot.com",
-    messagingSenderId: "895208776685",
-    appId: "1:895208776685:web:0c18c1990449c21039fde4",
-    measurementId: "G-9N904MQX0S"
+    apiKey: process.env.EXPO_PUBLIC_API_KEY,
+    authDomain: process.env.EXPO_PUBLIC_AUTH_DOMAIN,
+    databaseURL: process.env.EXPO_PUBLIC_DATABASE_URL,
+    projectId: process.env.EXPO_PUBLIC_PROJECT_ID,
+    storageBucket: process.env.EXPO_PUBLIC_STORAGE_BUCKET,
+    messagingSenderId: process.env.EXPO_PUBLIC_MESSAGING_SENDER_ID,
+    appId: process.env.EXPO_PUBLIC_APP_ID,
+    measurementId: process.env.EXPO_PUBLIC_MEASUREMENT_ID
 };
 
 const app = firebase.initializeApp(firebaseConfig);

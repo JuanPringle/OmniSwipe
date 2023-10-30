@@ -72,7 +72,7 @@ const Modal = () => {
         });
     }, []);
 
-    const incompleteForm = !profileImage || !job || !age || !firstName;
+    const incompleteForm = !profileImage || !job || !age || !firstName || !lastName;
 
     const updateUsertProfile = () => {
         //console.log(username);
