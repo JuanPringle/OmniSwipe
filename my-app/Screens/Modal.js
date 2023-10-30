@@ -31,17 +31,18 @@ const Modal = () => {
     const incompleteForm = !image || !job || !age || !username;
 
     const updateUsertProfile = () => {
+        //console.log(username);
         firestore.collection('Users').doc(user.uid).set({
             id: user.uid,
             displayName: username,
             photoURL: image,
             occupation: job,
             age: age,
-            timestamp: firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
             navigation.navigate('Home');
         }).catch(error => {
-            alert(error.message);
+            //alert(error.message);
         });
     };
 
@@ -63,7 +64,7 @@ const Modal = () => {
             <TextInput
                 placeholder="What do you look like?"
                 placeholderTextColor={"white"}
-                onChange={text => setImage(text)}
+                onChangeText={text => setImage(text)}
                 value={image}
                 style={styles.input}
             />
@@ -74,7 +75,7 @@ const Modal = () => {
             <TextInput
                 placeholder="What do you do?"
                 placeholderTextColor={"white"}
-                onChange={text => setJob(text)}
+                onChangeText={text => setJob(text)}
                 value={job}
                 style={styles.input}
             />
@@ -85,7 +86,7 @@ const Modal = () => {
             <TextInput
                 placeholder="How old are you?"
                 placeholderTextColor={"white"}
-                onChange={text => setAge(text)}
+                onChangeText={text => setAge(text)}
                 value={age}
                 style={styles.input}
                 keyboardType='numeric'
@@ -96,7 +97,7 @@ const Modal = () => {
             <TextInput
                 placeholder="What name do you go by?"
                 placeholderTextColor={"white"}
-                onChange={text => setUsername(text)}
+                onChangeText={text => setUsername(text)}
                 value={username}
                 style={styles.input}
             />
