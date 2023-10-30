@@ -26,18 +26,20 @@ const Modal = () => {
     const [image,setImage] = useState(null);
     const [job, setJob] = useState(null);
     const [age, setAge] = useState(null);
-    const [username, setUsername] = useState(null);
+    const [firstName, setFirstName] = useState(null);
+    const [lastName, setLastName] = useState(null);
 
-    const incompleteForm = !image || !job || !age || !username;
+    const incompleteForm = !image || !job || !age || !firstName;
 
     const updateUsertProfile = () => {
         //console.log(username);
         firestore.collection('Users').doc(user.uid).set({
-            id: user.uid,
-            displayName: username,
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
             photoURL: image,
             occupation: job,
-            age: age,
+            id: user.uid,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
             navigation.navigate('Home');
@@ -58,30 +60,27 @@ const Modal = () => {
             <Text style={styles.welcomeText}>
                 Its time to create your profile
             </Text>
-            <Text style={styles.stepText}>
-                Step 1: Profile Picture
-            </Text>
-            <TextInput
-                placeholder="What do you look like?"
-                placeholderTextColor={"white"}
-                onChangeText={text => setImage(text)}
-                value={image}
-                style={styles.input}
-            />
 
             <Text style={styles.stepText}>
-                Step 2: Occupation
+                Step 1: Name
             </Text>
             <TextInput
-                placeholder="What do you do?"
+                placeholder="What's your first name?"
                 placeholderTextColor={"white"}
-                onChangeText={text => setJob(text)}
-                value={job}
+                onChangeText={text => setFirstName(text)}
+                value={firstName}
                 style={styles.input}
             />
-
+            <TextInput
+                placeholder="What's your last name?"
+                placeholderTextColor={"white"}
+                onChangeText={text => setLastName(text)}
+                value={lastName}
+                style={styles.input}
+            />
+            
             <Text style={styles.stepText}>
-                Step 3: Age
+                Step 2: Age
             </Text>
             <TextInput
                 placeholder="How old are you?"
@@ -91,16 +90,31 @@ const Modal = () => {
                 style={styles.input}
                 keyboardType='numeric'
             />
+
             <Text style={styles.stepText}>
-                Step 4: Username
+                Step 3: Occupation
             </Text>
             <TextInput
-                placeholder="What name do you go by?"
+                placeholder="What do you do?"
                 placeholderTextColor={"white"}
-                onChangeText={text => setUsername(text)}
-                value={username}
+                onChangeText={text => setJob(text)}
+                value={job}
                 style={styles.input}
             />
+
+            
+
+            <Text style={styles.stepText}>
+                Step 4: Profile Picture
+            </Text>
+            <TextInput
+                placeholder="What do you look like?"
+                placeholderTextColor={"white"}
+                onChangeText={text => setImage(text)}
+                value={image}
+                style={styles.input}
+            />
+            
             <View style={{alignItems: 'center'}}>
                 <TouchableOpacity 
                     disabled={incompleteForm}
@@ -125,7 +139,7 @@ const styles = StyleSheet.create({
         height: 64,
         borderRadius:15,
         paddingBottom: 80,
-        marginTop:50,
+        marginTop:30,
     },
     disabledButton:{
         backgroundColor: 'gray',
@@ -133,7 +147,7 @@ const styles = StyleSheet.create({
         height: 64,
         borderRadius:15,
         paddingBottom: 80,
-        marginTop:50,
+        marginTop:30,
     },
     buttonText:{
         textAlign: 'center',
