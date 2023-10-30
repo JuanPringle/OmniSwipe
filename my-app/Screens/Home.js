@@ -134,8 +134,8 @@ const Home = () => {
           <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()} style={{
           alignItems:'center',
           justifyContent:'center',
-          width:100,
-          height:100,
+          width:50,
+          height:50,
           borderRadius:50,
           backgroundColor: "red",
           }}>
@@ -144,8 +144,8 @@ const Home = () => {
           <TouchableOpacity onPress={() => swipeRef.current.swipeRight()} style={{
           alignItems:'center',
           justifyContent:'center',
-          width:100,
-          height:100,
+          width:50,
+          height:50,
           borderRadius:50,
           backgroundColor: "#4DED30",
           }}>

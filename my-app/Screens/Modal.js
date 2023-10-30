@@ -10,6 +10,7 @@ import {
     Keyboard
 } from 'react-native';
 import useAuth from "../CustomHooks/useAuth";
+import { userDB, firebase } from '../config';
 import { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 const Modal = () => {
@@ -22,9 +23,27 @@ const Modal = () => {
     }, []);
 
     const {user} = useAuth();
-    const [image,setImage] = useState(null);
-    const [job, setJob] = useState(null);
-    const [age, setAge] = useState(null);
+    const [image,setImage] = useState("");
+    const [job, setJob] = useState("");
+    const [age, setAge] = useState(0);
+    const [username, setUsername] = useState("");
+
+    const incompleteForm = image != "" || job != "" || age != 0 || username!= "";
+
+    const updateUsertProfile = () => {
+        userDB.doc(user.uid).set({
+            id: user.uid,
+            displayName: username,
+            photoURL: image,
+            occupation: job,
+            age: age,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            navigation.navigate('Home');
+        }).catch(error => {
+            alert(error.message);
+        });
+    };
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -42,8 +61,10 @@ const Modal = () => {
                 Step 1: Profile Picture
             </Text>
             <TextInput
-                placeholder="Enter your PFP URL"
+                placeholder="What do you look like?"
                 placeholderTextColor={"white"}
+                onChange={setImage}
+                value={image}
                 style={styles.input}
             />
 
@@ -53,6 +74,8 @@ const Modal = () => {
             <TextInput
                 placeholder="What do you do?"
                 placeholderTextColor={"white"}
+                onChange={setJob}
+                value={job}
                 style={styles.input}
             />
 
@@ -60,13 +83,31 @@ const Modal = () => {
                 Step 3: Age
             </Text>
             <TextInput
-                placeholder="Enter"
+                placeholder="How old are you?"
                 placeholderTextColor={"white"}
+                onChange={setAge}
+                value={age}
                 style={styles.input}
                 keyboardType='numeric'
             />
+            <Text style={styles.stepText}>
+                Step 4: Username
+            </Text>
+            <TextInput
+                placeholder="What name do you go by?"
+                placeholderTextColor={"white"}
+                onChange={setUsername}
+                value={username}
+                style={styles.input}
+            />
             <View style={{alignItems: 'center'}}>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity 
+                    disabled={!incompleteForm}
+                    onPress={updateUsertProfile}
+                    style={
+                        incompleteForm ? styles.disabledButton : styles.button
+                    }
+                >
                     <Text style={styles.buttonText}>
                         Update Profile
                     </Text>
@@ -85,11 +126,19 @@ const styles = StyleSheet.create({
         paddingBottom: 80,
         marginTop:50,
     },
+    disabledButton:{
+        backgroundColor: 'gray',
+        width: 256,
+        height: 64,
+        borderRadius:15,
+        paddingBottom: 80,
+        marginTop:50,
+    },
     buttonText:{
-       textAlign: 'center',
-       paddingTop: 30,
-       paddingBottom:30,
-       color: 'white'
+        textAlign: 'center',
+        paddingTop: 30,
+        paddingBottom:30,
+        color: 'white'
     },
 
     image:{
