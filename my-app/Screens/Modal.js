@@ -10,7 +10,7 @@ import {
     Keyboard
 } from 'react-native';
 import useAuth from "../CustomHooks/useAuth";
-import { userDB, firebase } from '../config';
+import { firestore, firebase } from '../config';
 import { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 const Modal = () => {
@@ -23,21 +23,21 @@ const Modal = () => {
     }, []);
 
     const {user} = useAuth();
-    const [image,setImage] = useState("");
-    const [job, setJob] = useState("");
-    const [age, setAge] = useState(0);
-    const [username, setUsername] = useState("");
+    const [image,setImage] = useState(null);
+    const [job, setJob] = useState(null);
+    const [age, setAge] = useState(null);
+    const [username, setUsername] = useState(null);
 
-    const incompleteForm = image != "" || job != "" || age != 0 || username!= "";
+    const incompleteForm = !image || !job || !age || !username;
 
     const updateUsertProfile = () => {
-        userDB.doc(user.uid).set({
+        firestore.collection('Users').doc(user.uid).set({
             id: user.uid,
             displayName: username,
             photoURL: image,
             occupation: job,
             age: age,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firestore.FieldValue.serverTimestamp()
         }).then(() => {
             navigation.navigate('Home');
         }).catch(error => {
@@ -63,7 +63,7 @@ const Modal = () => {
             <TextInput
                 placeholder="What do you look like?"
                 placeholderTextColor={"white"}
-                onChange={setImage}
+                onChange={text => setImage(text)}
                 value={image}
                 style={styles.input}
             />
@@ -74,7 +74,7 @@ const Modal = () => {
             <TextInput
                 placeholder="What do you do?"
                 placeholderTextColor={"white"}
-                onChange={setJob}
+                onChange={text => setJob(text)}
                 value={job}
                 style={styles.input}
             />
@@ -85,7 +85,7 @@ const Modal = () => {
             <TextInput
                 placeholder="How old are you?"
                 placeholderTextColor={"white"}
-                onChange={setAge}
+                onChange={text => setAge(text)}
                 value={age}
                 style={styles.input}
                 keyboardType='numeric'
@@ -96,13 +96,13 @@ const Modal = () => {
             <TextInput
                 placeholder="What name do you go by?"
                 placeholderTextColor={"white"}
-                onChange={setUsername}
+                onChange={text => setUsername(text)}
                 value={username}
                 style={styles.input}
             />
             <View style={{alignItems: 'center'}}>
                 <TouchableOpacity 
-                    disabled={!incompleteForm}
+                    disabled={incompleteForm}
                     onPress={updateUsertProfile}
                     style={
                         incompleteForm ? styles.disabledButton : styles.button

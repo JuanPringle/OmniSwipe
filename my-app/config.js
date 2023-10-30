@@ -25,4 +25,4 @@ if(!firebase.apps.length){
     firebase.initializeApp(firebaseConfig);
 }
 
-export { auth, firebase,  app, userDB};
+export { auth, firebase,  app, firestore};
