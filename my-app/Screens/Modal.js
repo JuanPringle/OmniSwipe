@@ -184,7 +184,7 @@ const Modal = () => {
                     <View>
                         {profileImage && <Image
                             source={{uri:profileImage}}
-                            style={{width:200, height:300, alignItems: 'center'}}
+                            style={{width:200, height:300, alignSelf: 'center'}}
                         />}
                     </View>
                 </View>
