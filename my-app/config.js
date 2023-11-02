@@ -1,7 +1,8 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-import { setDoc, doc } from 'firebase/compat/firestore';
+import 'firebase/compat/storage';
+
 
 const firebaseConfig = {
     apiKey: process.env.EXPO_PUBLIC_API_KEY,
@@ -17,6 +18,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const firestore = app.firestore();
+const fbStorage = firebase.storage();
 const userDB = firestore.collection('Users');
 
 
@@ -25,4 +27,4 @@ if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
-export { auth, firebase, app, firestore };
+export { auth, firebase, app, firestore, fbStorage };

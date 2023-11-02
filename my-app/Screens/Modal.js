@@ -12,12 +12,13 @@ import {
     ScrollView
 } from 'react-native';
 import useAuth from "../CustomHooks/useAuth";
-import { firestore, firebase } from '../config';
+import { firestore, firebase, fbStorage } from '../config';
 import { useLayoutEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { FontAwesome } from '@expo/vector-icons';
+
 const Modal = () => {
     const [profileImage,setProfileImage] =useState(null);
     const [uploadImage,setUploadImage] =useState(false);
@@ -26,6 +27,7 @@ const Modal = () => {
     const [age, setAge] = useState(null);
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
+    
     const pickImageAsync = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             allowsEditing: true,
@@ -36,9 +38,17 @@ const Modal = () => {
             setProfileImage(result.assets[0].uri)
         }
     }
-    const uploadMedia= async ()=>{
-        setUploadImage(true)
+
+    const uploadImageToFirebaseStorage = async (filename, id) => {
         try {
+            const delRef = await fbStorage.ref(`Images/${id}`);
+            delRef.delete(delRef).catch((error) => {
+                console.log('previous file cant be deleted');
+            });
+            const metadata = {
+                contentType: 'image/jpeg',
+            }
+
             const{uri}= await FileSystem.getInfoAsync(profileImage);
             const blob= await new Promise((resolve, reject) =>{
                 const xhr= new XMLHttpRequest();
@@ -52,6 +62,25 @@ const Modal = () => {
                 xhr.open('GET', uri,true);
                 xhr.send(null);
             });
+
+            const reference = await fbStorage.ref(`Images/${id}`);
+            console.log('made ref!');
+            reference.put(blob, metadata).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            });
+
+            
+            console.log('Image uploaded successfully:');
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            throw error;
+        }
+    };
+
+    const uploadMedia= async ()=>{
+        setUploadImage(true)
+        try {
+            
             const filename =profileImage.substring(profileImage.lastIndexOf('/')+1);
             const ref= firebase.storage().ref().child(filename);
 
@@ -74,9 +103,9 @@ const Modal = () => {
 
     const incompleteForm = !profileImage || !job || !age || !firstName || !lastName;
 
-    const updateUsertProfile = () => {
-        //console.log(username);
-        const filename = profileImage.substring(profileImage.lastIndexOf('/') + 1);
+    const updateUserProfile = () => {
+        const filename =profileImage.substring(profileImage.lastIndexOf('/')+1);
+        uploadImageToFirebaseStorage(filename, user.uid);
         firestore.collection('Users').doc(user.uid).set({
             firstName: firstName,
             lastName: lastName,
@@ -162,7 +191,7 @@ const Modal = () => {
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity
                         disabled={incompleteForm}
-                        onPress={updateUsertProfile}
+                        onPress={updateUserProfile}
                         style={
                             incompleteForm ? styles.disabledButton : styles.button
                         }
