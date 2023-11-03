@@ -1,4 +1,4 @@
-import { React, useLayoutEffect, useRef } from 'react';
+import { React, useState, useLayoutEffect, useRef } from 'react';
 import {
   View,
   SafeAreaView,
@@ -16,11 +16,13 @@ import { useTailwind } from 'tailwind-rn';
 import {Ionicons} from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { firestore } from '../config';
 
 
 const Home = () => {
   const { logoutUser } = useAuth();
   const pfpImageM = require('../assets/pictures/examplePFPman.jpg');
+  const pfpUnknown = require('../assets/pictures/unknownPerson.jpg');
 
   const tailwind = useTailwind();
   const navigation = useNavigation();
@@ -32,7 +34,12 @@ const Home = () => {
     });
   }, []);
 
-  const FAKE_DATA = [
+  const getCardInfo = async () => {
+    
+    return;
+  };
+
+  const [cardData, setCardData] = useState([
     {
       firstName: "John",
       lastName: "Pingol",
@@ -57,7 +64,7 @@ const Home = () => {
       occupation: "Web Developer",
       id:789
     },
-  ];
+  ]);
 
   return (
     <View style={styles.outsideView}>
@@ -78,13 +85,15 @@ const Home = () => {
         <View style={styles.container}>
           <Swiper
             ref={swipeRef}
-            cards={FAKE_DATA}
+            cards={cardData}
             cardIndex={0}
-            infinite={true}
+            infinite={false}
             showSecondCard={true}
             verticalSwipe={false}
             animateCardOpacity
             stackSize={3}
+            //onTapCard={}
+            onSwipedAll={() => {getCardInfo().then(() => {swipeRef.current.jumpToCardIndex(0)})}}
             onSwipedLeft={()=>{
               console.log("Pass")
             }}
@@ -112,7 +121,7 @@ const Home = () => {
             }}
             renderCard={(card) => (
               <View key={card.id} style={styles.card}>
-                <Image source={{uri: card.photoURL}} style={styles.cardImage} />
+                <Image source={card.photoURL == null ? {uri: pfpUnknown} : {uri: card.photoURL}} style={styles.cardImage} />
                 <View style={{ position: 'relative', width: '100%', alignSelf: 'center', justifyContent: 'flex-row',  }}>
                   <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', fontStyle: 'italic', paddingLeft: 5, marginLeft: 5 }}>
