@@ -110,7 +110,6 @@ const Modal = () => {
             firstName: firstName,
             lastName: lastName,
             age: age,
-            photoURL: filename,
             occupation: job,
             id: user.uid,
             timestamp: firebase.firestore.FieldValue.serverTimestamp()

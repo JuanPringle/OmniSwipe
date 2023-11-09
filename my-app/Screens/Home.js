@@ -16,11 +16,11 @@ import { useTailwind } from 'tailwind-rn';
 import {Ionicons} from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-import { firestore } from '../config';
-
+import { firestore, firebase, fbStorage } from '../config';
 
 const Home = () => {
-  const { logoutUser } = useAuth();
+  
+  const [cardStackSize, setCardStackSize] = useState(3);
   const pfpImageM = require('../assets/pictures/examplePFPman.jpg');
   const pfpUnknown = require('../assets/pictures/unknownPerson.jpg');
 
@@ -34,7 +34,32 @@ const Home = () => {
     });
   }, []);
 
+  const logoutUser = async (email, password) => {
+    try {
+      const response = await firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   const getCardInfo = async () => {
+    const collRef = firestore.collection('Users');
+    collRef.get().then((snapshot) => {
+      console.log(snapshot.size);
+      if(snapshot.size<5) setCardStackSize(snapshot.size);
+      else{
+        setCardStackSize(5);
+      }
+    }).catch((e) => {
+      console.log(e);
+      return;
+    });
+    collRef.orderBy('id').limit(cardStackSize).get().then((snapshot) => {
+      setCardData(snapshot);
+    })
+    
     
     return;
   };
@@ -80,6 +105,9 @@ const Home = () => {
           <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
             <Ionicons name="call-outline" size={30} color="white" style={styles.profileImage} />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => logoutUser()}>
+            <Ionicons name="exit" size={30} color="white" style={styles.profileImage} />
+          </TouchableOpacity>
         </View>
         {/* End of Header */}
         <View style={styles.container}>
@@ -91,7 +119,7 @@ const Home = () => {
             showSecondCard={true}
             verticalSwipe={false}
             animateCardOpacity
-            stackSize={3}
+            stackSize={cardStackSize}
             //onTapCard={}
             onSwipedAll={() => {getCardInfo().then(() => {swipeRef.current.jumpToCardIndex(0)})}}
             onSwipedLeft={()=>{
