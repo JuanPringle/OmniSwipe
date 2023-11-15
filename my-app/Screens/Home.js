@@ -34,6 +34,7 @@ const Home = () => {
     });
   }, []);
 
+
   const logoutUser = async (email, password) => {
     try {
       const response = await firebase.auth().signOut().then(() => {
@@ -45,19 +46,43 @@ const Home = () => {
   }
 
   const getCardInfo = async () => {
-    const collRef = firestore.collection('Users');
+    const collRef = firestore.collection('Users')
     collRef.get().then((snapshot) => {
       console.log(snapshot.size);
       if(snapshot.size<5) setCardStackSize(snapshot.size);
       else{
         setCardStackSize(5);
       }
+      console.log(cardStackSize);
     }).catch((e) => {
       console.log(e);
       return;
-    });
-    collRef.orderBy('id').limit(cardStackSize).get().then((snapshot) => {
-      setCardData(snapshot);
+    })
+    firestore.collection('Users').orderBy('id').limit(cardStackSize).get().then((snapshot) => {
+      
+      try{
+        const newCardData = snapshot.docs.map((doc) => (
+          console.log(doc).then(
+          {
+          firstName: doc.data(),
+          lastName: doc.lastName,
+          age: doc.age,
+          photo: null,
+          id: doc.id,
+          occupation: doc.occupation
+          
+        })
+        ))
+        setCardData(newCardData)
+        
+      }
+      catch(e){
+        console.log(e);
+      }
+      finally{
+        console.log(cardData);
+      }
+      
     })
     
     
@@ -149,7 +174,7 @@ const Home = () => {
             }}
             renderCard={(card) => (
               <View key={card.id} style={styles.card}>
-                <Image source={card.photoURL == null ? {uri: pfpUnknown} : {uri: card.photoURL}} style={styles.cardImage} />
+                <Image source={pfpUnknown} style={styles.cardImage} />
                 <View style={{ position: 'relative', width: '100%', alignSelf: 'center', justifyContent: 'flex-row',  }}>
                   <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', fontStyle: 'italic', paddingLeft: 5, marginLeft: 5 }}>
