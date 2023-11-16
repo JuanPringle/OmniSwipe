@@ -46,7 +46,7 @@ const Home = () => {
   }
 
   const getCardInfo = async () => {
-    const collRef = firestore.collection('Users')
+    const collRef = firestore.collection('Users');
     collRef.get().then((snapshot) => {
       console.log(snapshot.size);
       if(snapshot.size<5) setCardStackSize(snapshot.size);
