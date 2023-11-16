@@ -46,45 +46,22 @@ const Home = () => {
   }
 
   const getCardInfo = async () => {
-    const collRef = firestore.collection('Users');
-    collRef.get().then((snapshot) => {
-      console.log(snapshot.size);
-      if(snapshot.size<5) setCardStackSize(snapshot.size);
-      else{
-        setCardStackSize(5);
-      }
-      console.log(cardStackSize);
-    }).catch((e) => {
-      console.log(e);
-      return;
-    })
-    firestore.collection('Users').orderBy('id').limit(cardStackSize).get().then((snapshot) => {
-      
-      try{
-        const newCardData = snapshot.docs.map((doc) => (
-          console.log(doc).then(
-          {
-          firstName: doc.data(),
-          lastName: doc.lastName,
-          age: doc.age,
-          photo: null,
-          id: doc.id,
-          occupation: doc.occupation
-          
-        })
-        ))
-        setCardData(newCardData)
-        
-      }
-      catch(e){
-        console.log(e);
-      }
-      finally{
-        console.log(cardData);
-      }
-      
-    })
-    
+    const snapshot = await firestore.collection('Users').get();
+
+    // Convert documents to JSON
+    console.log(snapshot);
+    const jsonData = [];
+    snapshot.forEach((doc) => {
+      jsonData.push({
+        id: doc.id,
+        firstName: doc.firstName,
+        lastName: doc.lastName,
+        occupation: doc.occupation,
+        age: doc.age,
+        photo: null
+      });
+    });
+    setCardData(jsonData);
     
     return;
   };
