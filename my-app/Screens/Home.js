@@ -49,20 +49,18 @@ const Home = () => {
     const snapshot = await firestore.collection('Users').get();
 
     // Convert documents to JSON
-    console.log(snapshot);
+    
     const jsonData = [];
     snapshot.forEach((doc) => {
+      const photoRef = fbStorage.ref(`Images/${doc.id}`).getDownloadURL();
       jsonData.push({
         id: doc.id,
-        firstName: doc.firstName,
-        lastName: doc.lastName,
-        occupation: doc.occupation,
-        age: doc.age,
-        photo: null
+        photoURL: photoRef,
+        ...doc.data()
       });
     });
     setCardData(jsonData);
-    
+    console.log(cardData);
     return;
   };
 
@@ -151,7 +149,7 @@ const Home = () => {
             }}
             renderCard={(card) => (
               <View key={card.id} style={styles.card}>
-                <Image source={pfpUnknown} style={styles.cardImage} />
+                <Image source={card.photoURL == null ? pfpUnknown : {uri: card.photoURL}} style={styles.cardImage} />
                 <View style={{ position: 'relative', width: '100%', alignSelf: 'center', justifyContent: 'flex-row',  }}>
                   <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', fontStyle: 'italic', paddingLeft: 5, marginLeft: 5 }}>
