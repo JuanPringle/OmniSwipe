@@ -52,12 +52,19 @@ const Home = () => {
     
     const jsonData = [];
     snapshot.forEach((doc) => {
-      const photoRef = fbStorage.ref(`Images/${doc.id}`).getDownloadURL();
-      jsonData.push({
-        id: doc.id,
-        photoURL: photoRef,
-        ...doc.data()
-      });
+      fbStorage.ref().child(`Images/${doc.id}`).getDownloadURL().then((photoRef) => {
+        jsonData.push({
+          id: doc.id,
+          photoURL: photoRef,
+          ...doc.data()
+        });
+      }).catch((e)=>{
+        jsonData.push({
+          id: doc.id,
+          photoURL: null,
+          ...doc.data()
+        });
+      })
     });
     setCardData(jsonData);
     console.log(cardData);
