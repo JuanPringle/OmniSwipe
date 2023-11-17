@@ -19,7 +19,6 @@ const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const firestore = app.firestore();
 const fbStorage = firebase.storage();
-const userDB = firestore.collection('Users');
 
 
 
