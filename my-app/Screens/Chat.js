@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, StyleSheet, Button, StatusBar } from 'react-native'
 import React from 'react'
 import { Audio } from 'expo-av';
 import * as Sharing from 'expo-sharing';
