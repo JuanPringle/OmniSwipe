@@ -47,37 +47,28 @@ const Home = () => {
 
   const getCardInfo = async () => {
     const snapshot = await firestore.collection('Users').limit(3).get();
-
-    // Convert documents to JSON
     const imageDB = fbStorage.ref().child(`Images`);
     const jsonData = [];
-    snapshot.forEach( async(doc) => {
-      promise = new Promise(() => {
-        imageDB.child(`${ doc.id}`).getDownloadURL().then((photoRef) => {
-        
-          jsonData.push({
-            id: doc.id,
-            photoURL: photoRef,
-            ...doc.data()
-          }).catch(()=>{
-            console.log("f");
-            jsonData.push({
-              id: doc.id,
-              photoURL: null,
-              ...doc.data()
-          });
-            console.log("p");
-          })
-          console.log("s");
+    for(const doc of snapshot.docs){
+      const photoRef = await imageDB.child(`${ doc.id}`).getDownloadURL()
+      try{
+        jsonData.push({
+          id: doc.id,
+          photoURL: photoRef,
+          ...doc.data()
         })
-      });
-      await promise;
-      console.log("n");
-    }).then(()=>{
-      console.log(cardData);
-      setCardData(jsonData);
-      return;
-    });
+      }
+      catch{
+        jsonData.push({
+          id: doc.id,
+          photoURL: null,
+          ...doc.data()
+        });
+      }
+    }
+    //console.log(cardData);
+    setCardData(jsonData);
+    return;
   };
 
 
@@ -139,7 +130,7 @@ const Home = () => {
             animateCardOpacity
             stackSize={cardStackSize}
             //onTapCard={}
-            onSwipedAll={() => {getCardInfo().then(() => {swipeRef.current.jumpToCardIndex(1)})}}
+            onSwipedAll={() => {getCardInfo().then(() => {swipeRef.current.jumpToCardIndex(0)})}}
             onSwipedLeft={()=>{
               console.log("Pass")
             }}
