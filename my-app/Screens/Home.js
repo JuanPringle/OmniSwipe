@@ -1,4 +1,4 @@
-import { React, useState, useLayoutEffect, useRef } from 'react';
+import { React, useState, useEffect, useLayoutEffect, useRef } from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Touchable,
+  ActivityIndicator
 } from 'react-native';
 import Swiper from 'react-native-deck-swiper';
 import { useNavigation } from '@react-navigation/core';
@@ -34,6 +35,10 @@ const Home = () => {
     });
   }, []);
 
+  useEffect(() => {
+    getCardInfo().then(console.log(cardData));
+    getCardInfo().then(console.log(cardData));
+  }, []);
 
   const logoutUser = async (email, password) => {
     try {
@@ -46,6 +51,7 @@ const Home = () => {
   }
 
   const getCardInfo = async () => {
+    setCardData([]);
     const snapshot = await firestore.collection('Users').limit(3).get();
     const imageDB = fbStorage.ref().child(`Images`);
     const jsonData = [];
@@ -71,34 +77,7 @@ const Home = () => {
     return;
   };
 
-
-
-  const [cardData, setCardData] = useState([
-    {
-      firstName: "John",
-      lastName: "Pingol",
-      age: 22,
-      photoURL: "https://i.pinimg.com/originals/23/f0/9e/23f09e4af872d27521fffc27c1b931f6.jpg",
-      occupation: "Retail Worker",
-      id:123
-    },
-    {
-      firstName: "Christian",
-      lastName: "Felix",
-      age: 21,
-      photoURL: "https://media.tenor.com/C69EZbBZ5JAAAAAC/random-girl-pretty-girl-green-eyes.gif",
-      occupation: "Student",
-      id:456
-    },
-    {
-      firstName: "Danny",
-      lastName: "Devito",
-      age: 20,
-      photoURL: "https://breakbrunch.com/wp-content/uploads/2020/04/sexy-girl-5e95f5002626fab5b.jpg",
-      occupation: "Web Developer",
-      id:789
-    },
-  ]);
+  const [cardData, setCardData] = useState([]);
 
   return (
     <View style={styles.outsideView}>
@@ -120,6 +99,10 @@ const Home = () => {
         </View>
         {/* End of Header */}
         <View style={styles.container}>
+        { cardData != [] && 
+          <ActivityIndicator size="large" color="#ff8000" style={styles.spinner}/>
+        }
+        { cardData == [] && 
           <Swiper
             ref={swipeRef}
             cards={cardData}
@@ -158,7 +141,7 @@ const Home = () => {
             }}
             renderCard={(card) => (
               <View key={card.id} style={styles.card}>
-                <Image source={card.photoURL == null ? pfpUnknown : {uri: card.photoURL}} style={styles.cardImage} />
+                <Image source={card == null || card.photoURL == null ? pfpUnknown : {uri: card.photoURL}} style={styles.cardImage} />
                 <View style={{ position: 'relative', width: '100%', alignSelf: 'center', justifyContent: 'flex-row',  }}>
                   <View>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', fontStyle: 'italic', paddingLeft: 5, marginLeft: 5 }}>
@@ -175,6 +158,7 @@ const Home = () => {
               </View>
             )}
           />
+        }
         </View>
         <View style={styles.buttons}>
           <TouchableOpacity onPress={() => swipeRef.current.swipeLeft()} style={{
@@ -269,6 +253,11 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     justifyContent: "center",
   },
+  spinner:{
+    verticalAlign: "center",
+    justifyContent: 'space-around',
+    padding: 200,
+  }
 });
 
 export default Home;
